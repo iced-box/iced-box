@@ -9,6 +9,7 @@ repository.workspace = true
 categories.workspace = true
 keywords.workspace = true
 
+
 [workspace.package]
 version = "0.1.0"
 authors = ["Cosmo André <soucosmomoraes@gmail.com>"]
@@ -16,7 +17,7 @@ edition = "2021"
 repository = "https://github.com/iced-box/iced-box"
 categories = ["gui"]
 keywords = ["gui", "ui", "graphics", "interface", "widgets"]
-license-file = "LICENSE"
+license = "GPL-3.0-only"
 
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
