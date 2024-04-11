@@ -7,7 +7,7 @@ iced-box documentation [here](https://docs.rs/iced-box/latest/iced_box/)
 Compatibility with iced versions
 | Features | Compatible with iced versions |
 | --- | --- |
-| [icon](https://docs.rs/iced-box/latest/iced_box/icon) | 0.12x |
+| [icon](https://docs.rs/iced-box/latest/iced_box/icon) | 0.12.x |
 
 ### Description
 This box was created with the aim of offering new features to [iced](https://iced.rs)

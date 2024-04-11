@@ -11,7 +11,7 @@ keywords.workspace = true
 
 
 [workspace.package]
-version = "0.2.5"
+version = "0.2.6"
 authors = ["Cosmo André <soucosmomoraes@gmail.com>"]
 edition = "2021"
 repository = "https://github.com/iced-box/iced-box"
