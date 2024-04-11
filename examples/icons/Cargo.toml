@@ -7,5 +7,5 @@ authors = ["Cosmo André <soucosmomoraes@gmail.com>"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-iced = "0.12.1"
+iced = "0.12"
 iced-box = { version = "0.2.4", features = ["icon"] }

@@ -15,7 +15,7 @@ version = "0.2.4"
 authors = ["Cosmo André <soucosmomoraes@gmail.com>"]
 edition = "2021"
 repository = "https://github.com/iced-box/iced-box"
-categories = ["gui"]
+categories = ["gui", "icon"]
 keywords = ["gui", "ui", "graphics", "interface", "widgets"]
 license = "GPL-3.0-only"
 
