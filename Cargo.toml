@@ -27,10 +27,6 @@ members = ["examples/icons", "icon","widget"]
 [workspace.dependencies]
 iced = { version = "0.12.1", features = ["lazy"] }
 
-[dependencies]
-#ciced-box = { path = "." }
-icon = { path = "icon" }
-
 [features]
 icon = []
 
