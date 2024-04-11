@@ -15,7 +15,7 @@ To install several features, use ```cargo add iced-box --features icon,another``
 
 ### Features
 
-| Feature | Description |
+| Name | Description |
 | --- | --- |
 | [icon](https://docs.rs/iced-box/latest/iced_box/icon) | Provides an icon pack |
 
