@@ -1,6 +1,6 @@
 use iced::{font, Font, Command, Element, Application, Settings};
+use iced_box::icon::{Lucide, lucide_font, load_lucide_font};
 use iced::widget::{button, column, text, Column};
-use iced_box::Lucide;
 
 #[derive(Debug, Clone, Copy)]
 pub enum Message {
@@ -27,7 +27,7 @@ impl Application for Counter {
                 value: 0,
             },
             Command::batch(vec![
-                Lucide::load_font().map(Message::FontLoaded),
+                Lucide.load_font().map(Message::FontLoaded),
                 Command::none(),
             ])
         )
@@ -52,21 +52,25 @@ impl Application for Counter {
     }
     
     fn view(&self) -> Element<Message> {
-        let lucide_font: Font = Lucide::get_font();
+        let lucide_font : Font = lucide_font();
         
         // We use a column: a simple vertical layout
         column![
             // The increment button. We tell it to produce an
             // `IncrementPressed` message when pressed
-            button("+").on_press(Message::IncrementPressed),
+            button(
+                text(Lucide::Plus).font(lucide_font)
+            ).on_press(Message::IncrementPressed),
 
             // We show the value of the counter here
             text(self.value).size(50),
 
             // The decrement button. We tell it to produce a
             // `DecrementPressed` message when pressed
-            button("-").on_press(Message::DecrementPressed),
-            text(Lucide::AArrowDown).font(Lucide::get_font())
+            button(
+                text(Lucide::Minus).font(lucide_font)
+            ).on_press(Message::DecrementPressed),
+            text(Lucide::Plane).font(lucide_font)
         ].into()
     }
 }

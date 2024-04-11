@@ -7,13 +7,15 @@ use iced::Command;
 /// ```rust
 /// use iced::widget::{text, button};
 /// 
-/// use iced_box::icon::Lucide;
+/// use iced_box::icon::{Lucide, lucide_font, load_lucide_font};
 /// 
-/// let lucid_font = Lucide::get_font();
+/// let lucide_font = lucide_font();
 /// 
-/// text(Lucide::Anchor).font(lucid_font);
+/// text(Lucide::Anchor).font(lucide_font);
 /// 
-/// button(Lucide::Anchor).font(lucid_font);
+/// button(
+///     text(Lucide::Anchor).font(lucide_font)
+/// );
 /// ```
 /// 
 /// Just provide the same name as CamelCase.
@@ -2936,20 +2938,19 @@ impl Display for Lucide {
     }
 }
 
-impl Lucide {
-    /// Retrieves the font to be used in `.font(Lucide::get_font())`
-    /// 
-    /// ```rust
-    /// text(Lucide::AArrowDown).font(Lucide::get_font())
-    /// ```
-    pub fn get_font() -> Font {
-        Font::with_name("lucide")
-    }
 
-    /// Loads the source so that it can be registered at the beginning of iced
-    /// 
-    /// See an example of how to do this by [clicking here](https://github.com/iced-box/iced-box/tree/main/examples/icons)
-    pub fn font_load() -> Command<Result<(), Error>> {
-        load(include_bytes!("assets/lucide-icons.ttf").as_slice())
-    }
+/// Retrieves the font to be used in `.font(lucide_font())`
+/// 
+/// ```rust
+/// text(Lucide::AArrowDown).font(lucide_font())
+/// ```
+pub fn lucide_font() -> Font {
+    Font::with_name("lucide")
+}
+
+/// Loads the source so that it can be registered at the beginning of iced
+/// 
+/// See an example of how to do this by [clicking here](https://github.com/iced-box/iced-box/tree/main/examples/icons)
+pub fn load_lucide_font() -> Command<Result<(), Error>> {
+    load(include_bytes!("assets/lucide-icons.ttf").as_slice())
 }
