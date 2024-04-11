@@ -21,5 +21,5 @@ Today, iced has a complicated learning curve, one of the objectives of this proj
 | table | something similar to [this](https://getbootstrap.com/docs/4.0/content/tables/) |
 
 
-### CONTRIBUTING
+### Contributing
 Are you interested in contributing to the project? [know more](CONTRIBUTING.md) 
