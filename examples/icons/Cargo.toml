@@ -8,4 +8,4 @@ authors = ["Cosmo André <soucosmomoraes@gmail.com>"]
 
 [dependencies]
 iced = "0.12"
-iced-box = { version = "0.2.4", features = ["icon"] }
+iced-box = { version = "0.3.0", features = ["icon"] }
