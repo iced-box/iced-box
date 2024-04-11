@@ -27,6 +27,7 @@ impl Application for Counter {
                 value: 0,
             },
             Command::batch(vec![
+                load_material_font().map(Message::FontLoaded),
                 load_lucide_font().map(Message::FontLoaded),
                 Command::none(),
             ])
@@ -53,13 +54,14 @@ impl Application for Counter {
     
     fn view(&self) -> Element<Message> {
         let lucide_font : Font = lucide_font();
-        
+        let material_font : Font = material_font();
+
         // We use a column: a simple vertical layout
         column![
             // The increment button. We tell it to produce an
             // `IncrementPressed` message when pressed
             button(
-                text(Lucide::Plus).font(lucide_font)
+                text(Material::PlusOne).font(material_font)
             ).on_press(Message::IncrementPressed),
 
             // We show the value of the counter here
