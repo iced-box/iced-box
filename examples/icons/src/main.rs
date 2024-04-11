@@ -1,7 +1,6 @@
 use iced::{font, Font, Command, Element, Application, Settings};
 use iced::widget::{button, column, text, Column};
-use std::fmt::{self, write};
-use lucide::Lucide;
+use iced_box::Lucide;
 
 #[derive(Debug, Clone, Copy)]
 pub enum Message {

@@ -2,6 +2,25 @@ use iced::font::{load, Font, Error};
 use std::fmt::Display;
 use iced::Command;
 
+/// 
+/// #### Example of use
+/// ```rust
+/// use iced::widget::{text, button};
+/// 
+/// use iced_box::icon::Lucide;
+/// 
+/// let lucid_font = Lucide::get_font();
+/// 
+/// text(Lucide::Anchor).font(lucid_font);
+/// 
+/// button(Lucide::Anchor).font(lucid_font);
+/// ```
+/// 
+/// Just provide the same name as CamelCase.
+/// 
+/// A complete example can be seen [here](https://github.com/iced-box/iced-box/tree/main/examples/icons)
+/// 
+/// 
 
 pub enum Lucide {
     AArrowDown,
@@ -2929,8 +2948,8 @@ impl Lucide {
 
     /// Loads the source so that it can be registered at the beginning of iced
     /// 
-    /// See an example of how to do this by [clicking here](../../../examples/icons/src/main.rs)
-    pub fn font_load() -> iced::Command<Result<(), Error>> {
+    /// See an example of how to do this by [clicking here](https://github.com/iced-box/iced-box/tree/main/examples/icons)
+    pub fn font_load() -> Command<Result<(), Error>> {
         load(include_bytes!("assets/lucide-icons.ttf").as_slice())
     }
 }

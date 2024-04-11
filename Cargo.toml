@@ -22,7 +22,7 @@ keywords = ["gui", "ui", "graphics", "interface", "widgets"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace]
-members = [ "icon","widget"]
+members = ["examples/icons", "icon","widget"]
 
 [workspace.dependencies]
 iced = { version = "0.12.1", features = ["lazy"] }
