@@ -1,6 +1,13 @@
 use iced::{font, Font, Command, Element, Application, Settings};
-use iced_box::icon::{Lucide, lucide_font, load_lucide_font};
 use iced::widget::{button, column, text};
+use iced_box::icon::{
+    Lucide,
+    lucide_font,
+    load_lucide_font,
+    Material,
+    material_font,
+    load_material_font,
+};
 
 #[derive(Debug, Clone, Copy)]
 pub enum Message {
