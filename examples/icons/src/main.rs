@@ -1,6 +1,6 @@
 use iced::{font, Font, Command, Element, Application, Settings};
 use iced_box::icon::{Lucide, lucide_font, load_lucide_font};
-use iced::widget::{button, column, text, Column};
+use iced::widget::{button, column, text};
 
 #[derive(Debug, Clone, Copy)]
 pub enum Message {
@@ -75,5 +75,5 @@ impl Application for Counter {
     }
 }
 fn main() {
-    Counter::run(Settings::default());
+    let _ = Counter::run(Settings::default());
 }
