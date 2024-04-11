@@ -4,10 +4,20 @@ A utility box for iced.rs
 ### Useful links
 iced-box documentation [here](https://docs.rs/iced-box/latest/iced_box/)
 
-Compatibility with iced versions
-| Features | Compatible with iced versions |
+### Installation
+To install a single feature, use ```cargo add iced-box --features icon```
+To install several features, use ```cargo add iced-box --features icon,another``` 
+
+### Compatibility with iced versions
+| **iced** version | **iced-box** version |
 | --- | --- |
-| [icon](https://docs.rs/iced-box/latest/iced_box/icon) | 0.12.x |
+| 0.12.x | 0.2.x |
+
+### Features
+
+| Feature | Description |
+| --- | --- |
+| [icon](https://docs.rs/iced-box/latest/iced_box/icon) | Provides an icon pack |
 
 ### Description
 This box was created with the aim of offering new features to [iced](https://iced.rs)
