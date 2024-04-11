@@ -27,14 +27,14 @@ impl Application for Counter {
                 value: 0,
             },
             Command::batch(vec![
-                font::load(include_bytes!("lucide-icons.ttf").as_slice()).map(Message::FontLoaded),
+                Lucide::load_font().map(Message::FontLoaded),
                 Command::none(),
             ])
         )
     }
     
     fn title(&self) -> String {
-        "Teste".to_string()
+        "Icex-box icons".to_string()
     }
     
     fn update(&mut self, message: Message) -> Command<Message> {
@@ -52,8 +52,7 @@ impl Application for Counter {
     }
     
     fn view(&self) -> Element<Message> {
-        pub const BOOTSTRAP_FONT: Font = Font::with_name("bootstrap-icons");
-        pub const LUCIDE_FONT: Font = Font::with_name("lucide");
+        let lucide_font: Font = Lucide::get_font();
         
         // We use a column: a simple vertical layout
         column![
