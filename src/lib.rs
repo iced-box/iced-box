@@ -10,7 +10,11 @@
 
 /// Provides an icon pack for simplified use
 ///
-pub mod icon {
-    #[cfg(feature = "icon")]
-    pub use icon::Lucide;
-}
+/// 
+
+// pub mod icon {
+//     // #[cfg(feature = "icon")]
+//     pub use Lucide;
+// }
+
+pub mod icon;
