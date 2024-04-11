@@ -11,7 +11,7 @@ To install several features, use ```cargo add iced-box --features icon,another``
 ### Compatibility with iced versions
 | **iced** version | **iced-box** version |
 | --- | --- |
-| 0.12.x | 0.2.x |
+| 0.12 | 0.3, 0.2 |
 
 ### Features
 
