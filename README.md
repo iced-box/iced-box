@@ -5,7 +5,7 @@ A utility box for iced.rs
 iced-box documentation [here](https://docs.rs/iced-box/latest/iced_box/)
 
 ### Installation
-To install a single feature, use ```cargo add iced-box --features icon```
+To install a single feature, use ```cargo add iced-box --features icon```\
 To install several features, use ```cargo add iced-box --features icon,another``` 
 
 ### Compatibility with iced versions
