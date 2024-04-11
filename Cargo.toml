@@ -30,10 +30,10 @@ exclude = ["examples/icons"]
 iced = { version = "0.12.1", features = ["lazy"] }
 
 [dependencies]
-iced = { version = "0.12.1", optional = true }
+iced = { version = "0.12.1" }
 
 [features]
-icon = ["iced"]
+icon = []
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
