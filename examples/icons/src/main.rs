@@ -27,7 +27,7 @@ impl Application for Counter {
                 value: 0,
             },
             Command::batch(vec![
-                Lucide.load_font().map(Message::FontLoaded),
+                load_lucide_font().map(Message::FontLoaded),
                 Command::none(),
             ])
         )
