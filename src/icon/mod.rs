@@ -1,6 +1,6 @@
 //! Provides Lucide and Google Material style icons 
 //! 
-//! ![aaaaaaaaaaaa](../../../../examples/icons/image.png)
+//! ![](https://raw.githubusercontent.com/iced-box/iced-box/main/examples/icons/image.png)
 /// 
 ///
 mod lucide;
