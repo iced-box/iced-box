@@ -18,4 +18,8 @@ Today, iced has a complicated learning curve, one of the objectives of this proj
 ### For the future
 | Functionality | Description |
 | --- | --- |
-| table | something similar to [this](https://getbootstrap.com/docs/4.0/content/tables/) | 
+| table | something similar to [this](https://getbootstrap.com/docs/4.0/content/tables/) |
+
+
+### CONTRIBUTING
+Are you interested in contributing to the project? [know more](CONTRIBUTING.md) 
