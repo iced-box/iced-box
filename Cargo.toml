@@ -32,8 +32,8 @@ members = [
 [workspace.dependencies]
 iced = { version = "0.10", default-features = false }
 iced-box = { path = "." }
-icons_lucide = { path = "icons/lucide" }
-icons_material = { path = "icons/material" }
+icons_lucide = { version.workspace = true, path = "icons/lucide" }
+icons_material = { version.workspace = true, path = "icons/material" }
 
 [dependencies]
 iced.workspace = true
