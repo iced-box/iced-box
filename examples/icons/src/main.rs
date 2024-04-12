@@ -1,4 +1,4 @@
-use iced::{font, Font, Command, Element, Application, Settings};
+use iced::{Font, Command, Element, Application, Settings};
 use iced::widget::{button, column, text};
 use iced_box::icon::{
     LoadingResult,

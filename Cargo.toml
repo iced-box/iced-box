@@ -26,21 +26,20 @@ license = "GPL-3.0-only"
 members = [
     "icons/*",
     "widget",
-]
-
-exclude = [
     "examples/*",
 ]
+
 
 [workspace.dependencies]
 iced = { version = "0.12.1", default-features = false }
 iced_box = { path = "." }
-
+icons_lucide = { version = "0.3.3", path = "icons/lucide" }
+icons_material = { version = "0.3.3", path = "icons/material" }
 
 [dependencies]
-iced = { version = "0.12.1", default-features = false }
-icons_lucide = { version = "0.3.3", path = "icons/lucide", optional = true }
-icons_material = { version = "0.3.3", path = "icons/material", optional = true }
+iced.workspace = true
+#icons_lucide.workspace = true
+#icons_material.workspace = true
 
 [features]
 icon = []
@@ -50,3 +49,6 @@ material_icons = ["icon"]
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
 all-features = true
+
+[workspace.lints.rustdoc]
+broken_intra_doc_links = "forbid"
