@@ -1,5 +1,5 @@
 [package]
-name = "icons"
+name = "icons_lucide"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -12,4 +12,3 @@ license.workspace = true
 
 [dependencies]
 iced = { workspace = true }
-#iced_box = { workspace = true, features = ["material_icons", "lucide_icons"] }

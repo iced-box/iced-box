@@ -1,5 +1,5 @@
 [package]
-name = "iced-box"
+name = "iced_box"
 description = "A utility box for iced.rs"
 version.workspace = true
 edition.workspace = true
@@ -11,7 +11,7 @@ keywords.workspace = true
 
 
 [workspace.package]
-version = "0.3.2"
+version = "0.3.3"
 authors = ["Cosmo André <soucosmomoraes@gmail.com>"]
 edition = "2021"
 repository = "https://github.com/iced-box/iced-box"
@@ -23,17 +23,26 @@ license = "GPL-3.0-only"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace]
-members = ["widget"]
-exclude = ["examples/icons"]
+members = [
+    "icons/*",
+    "widget",
+    "examples/*",
+]
 
 [workspace.dependencies]
 iced = { version = "0.12.1", default-features = false }
+iced_box = { path = "." }
+
 
 [dependencies]
 iced = { version = "0.12.1", default-features = false }
+icons_lucide = { path = "icons/lucide", optional = true }
+icons_material = { path = "icons/material", optional = true }
 
 [features]
 icon = []
+lucide_icons = ["icon"]
+material_icons = ["icon"]
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]

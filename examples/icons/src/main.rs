@@ -1,19 +1,16 @@
 use iced::{font, Font, Command, Element, Application, Settings};
 use iced::widget::{button, column, text};
 use iced_box::icon::{
-    Lucide,
-    lucide_font,
-    load_lucide_font,
-    Material,
-    material_font,
-    load_material_font,
+    LoadingResult,
+    lucide::*,
+    material::*,
 };
 
 #[derive(Debug, Clone, Copy)]
 pub enum Message {
     IncrementPressed,
     DecrementPressed,
-    FontLoaded(Result<(), font::Error>),
+    FontLoaded(LoadingResult),
 }
 
 #[derive(Debug)]

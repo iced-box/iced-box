@@ -5,8 +5,8 @@ A utility box for iced.rs
 iced-box documentation [here](https://docs.rs/iced-box/latest/iced_box/)
 
 ### Installation
-To install a single feature, use ```cargo add iced-box --features icon```\
-To install several features, use ```cargo add iced-box --features icon,another``` 
+To install a single feature, use ```cargo add iced-box --features material_icons```\
+To install several features, use ```cargo add iced-box --features material_icons,lucide_icons``` 
 
 ### Compatibility with iced versions
 | **iced** version | **iced-box** version |
@@ -14,10 +14,10 @@ To install several features, use ```cargo add iced-box --features icon,another``
 | 0.12 | 0.3, 0.2 |
 
 ### Features
-
 | Name | Description |
 | --- | --- |
-| [icon](https://docs.rs/iced-box/latest/iced_box/icon) | Provides an icon pack |
+| [material_icons](https://docs.rs/iced-box/latest/iced_box/icon/material) | Provides Google Material style icons  |
+| [lucide_icons](https://docs.rs/iced-box/latest/iced_box/icon/lucide) | Provides Lucide style icons |
 
 ### Description
 This box was created with the aim of offering new features to [iced](https://iced.rs)

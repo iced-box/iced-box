@@ -2,6 +2,8 @@ use iced::font::{load, Font, Error};
 use std::fmt::Display;
 use iced::Command;
 
+/// ### A module that allows the use of [Material](https://fonts.google.com/icons) icons in a simplified way, see all the icons that can be used on the official page <https://fonts.google.com/icons>
+/// 
 /// 
 /// #### Example of use
 /// ```rust

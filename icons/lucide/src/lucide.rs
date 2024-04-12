@@ -2,12 +2,12 @@ use iced::font::{load, Font, Error};
 use std::fmt::Display;
 use iced::Command;
 
-/// 
+/// ### A module that allows the use of [Lucide](https://lucide.dev/icons) icons in a simplified way, see all the icons that can be used on the official page <https://lucide.dev/icons>
 /// #### Example of use
 /// ```rust
 /// use iced::widget::{text, button};
 /// 
-/// use iced_box::icon::{Lucide, lucide_font, load_lucide_font};
+/// use iced_box::icon::lucide::{Icon as Lucide, lucide_font, load_lucide_font};
 /// 
 /// let lucide_font = lucide_font();
 /// 
