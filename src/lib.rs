@@ -1,3 +1,9 @@
+#[cfg(feature = "lucide_icons")]
+extern crate icons_lucide;
+
+#[cfg(feature = "material_icons")]
+extern crate icons_material;
+
 //#[cfg(feature = "icon")]
 pub mod icon {
     //!
