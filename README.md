@@ -12,6 +12,7 @@ To install several features, use ```cargo add iced-box --features material_icons
 | **iced** version | **iced-box** version |
 | --- | --- |
 | 0.12 | 0.3, 0.2 |
+| 0.10 | 0.4 |
 
 ### Features
 | Name | Description |
