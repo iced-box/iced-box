@@ -26,6 +26,9 @@ license = "GPL-3.0-only"
 members = [
     "icons/*",
     "widget",
+]
+
+exclude = [
     "examples/*",
 ]
 
@@ -36,8 +39,8 @@ iced_box = { path = "." }
 
 [dependencies]
 iced = { version = "0.12.1", default-features = false }
-icons_lucide = { path = "icons/lucide", optional = true }
-icons_material = { path = "icons/material", optional = true }
+icons_lucide = { version = "0.3.3", path = "icons/lucide", optional = true }
+icons_material = { version = "0.3.3", path = "icons/material", optional = true }
 
 [features]
 icon = []
