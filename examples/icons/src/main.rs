@@ -1,3 +1,6 @@
+extern crate iced;
+extern crate iced_box;
+
 use iced::{Font, Command, Element, Application, Settings};
 use iced::widget::{button, column, text};
 use iced_box::icon::{

@@ -29,17 +29,17 @@ members = [
     "examples/*",
 ]
 
-
 [workspace.dependencies]
 iced = { version = "0.12.1", default-features = false }
-iced_box = { path = "." }
-icons_lucide = { version = "0.3.3", path = "icons/lucide" }
-icons_material = { version = "0.3.3", path = "icons/material" }
+iced-box = { path = "." }
+icons_lucide = { path = "icons/lucide" }
+icons_material = { path = "icons/material" }
 
 [dependencies]
 iced.workspace = true
-#icons_lucide.workspace = true
-#icons_material.workspace = true
+#iced-box.workspace = true
+icons_lucide.workspace = true
+icons_material.workspace = true
 
 [features]
 icon = []
