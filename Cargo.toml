@@ -11,7 +11,7 @@ keywords.workspace = true
 
 
 [workspace.package]
-version = "0.3.2"
+version = "0.5.0"
 authors = ["Cosmo André <soucosmomoraes@gmail.com>"]
 edition = "2021"
 repository = "https://github.com/iced-box/iced-box"
@@ -23,18 +23,27 @@ license = "GPL-3.0-only"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace]
-members = ["widget"]
-exclude = ["examples/icons"]
+members = [
+    #"widget",
+    "examples/*",
+]
 
 [workspace.dependencies]
 iced = { version = "0.12.1", default-features = false }
+iced-box = { path = "." }
 
 [dependencies]
-iced = { version = "0.12.1", default-features = false }
+iced.workspace = true
+
 
 [features]
 icon = []
+lucide_icons = ["icon"]
+material_icons = ["icon"]
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
 all-features = true
+
+[workspace.lints.rustdoc]
+broken_intra_doc_links = "forbid"
