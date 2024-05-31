@@ -1,48 +1,55 @@
-use std::time::{Duration, Instant};
-use iced::advanced::layout::{self, Layout};
-use iced::advanced::overlay;
-use iced::advanced::renderer;
-use iced::advanced::widget::{self, Operation, Tree};
-use iced::advanced::{Clipboard, Shell, Widget};
-use iced::event::{self, Event};
-use iced::mouse;
-use iced::theme;
-use iced::widget::{
-    button, column, container, horizontal_rule, horizontal_space, row, text,
-};
-mod status;
-mod helpers;
-
-use status::Status;
 use iced::{
-    window,
-    Alignment, Element, Length, Point, Rectangle, Renderer, Size, Theme,
+    Element,
+    Alignment,
+    Theme,
+    Length,
+    Size,
+    mouse,
+    Renderer,
+    time::Instant,
+    event::{self, Event},
+    Rectangle,
     Vector,
+    advanced::{
+        renderer,
+        overlay::{self},
+        Shell,
+        layout,
+        Widget,
+        Layout,
+        Clipboard,
+        widget::{
+            self,
+            Tree,
+            Operation,
+        },
+    },
+    widget::{
+        button,
+        column,
+        container,
+        horizontal_rule,
+        horizontal_space,
+        row,
+        text,
+    }
 };
+use super::{
+    Toast,
+    overlay::Overlay,
+    Status,
+    styles::{
+        primary,
+        secondary,
+        success,
+        danger,
+    },
+};
+
 
 pub const DEFAULT_TIMEOUT: u64 = 5;
 
-#[derive(Debug, Clone, Default)]
-pub struct Toast {
-    pub title: String,
-    pub body: String,
-    pub status: Status,
-    pub with_close: bool,
-}
-
-impl Toast {
-    pub fn body(&mut self, body: &str) -> Self {
-        self.body = body.to_string();
-
-        self.clone()
-    }
-
-    pub fn with_close(mut self) -> Self {
-        self.with_close = true;
-        self
-    }   
-}
-
+/// Manages alerts, controls the display and termination of the alert
 pub struct Manager<'a, Message> {
     content: Element<'a, Message>,
     toasts: Vec<Element<'a, Message>>,
@@ -122,6 +129,7 @@ where
         }
     }
 
+    /// Sets the amount of time alerts are displayed, the default is 5 seconds.
     pub fn timeout(self, seconds: u64) -> Self {
         Self {
             timeout_secs: seconds,
@@ -304,187 +312,6 @@ impl<'a, Message> Widget<Message, Theme, Renderer> for Manager<'a, Message> {
     }
 }
 
-struct Overlay<'a, 'b, Message> {
-    position: Point,
-    toasts: &'b mut [Element<'a, Message>],
-    state: &'b mut [Tree],
-    instants: &'b mut [Option<Instant>],
-    on_close: &'b dyn Fn(usize) -> Message,
-    timeout_secs: u64,
-}
-
-impl<'a, 'b, Message> overlay::Overlay<Message, Theme, Renderer>
-    for Overlay<'a, 'b, Message>
-{
-    fn layout(
-        &mut self,
-        renderer: &Renderer,
-        bounds: Size,
-    ) -> layout::Node {
-        let limits = layout::Limits::new(Size::ZERO, bounds);
-
-        layout::flex::resolve(
-            layout::flex::Axis::Vertical,
-            renderer,
-            &limits,
-            Length::Fill,
-            Length::Fill,
-            10.into(),
-            10.0,
-            Alignment::End,
-            self.toasts,
-            self.state,
-        )
-        .translate(Vector::new(self.position.x, self.position.y))
-    }
-
-    fn on_event(
-        &mut self,
-        event: Event,
-        layout: Layout<'_>,
-        cursor: mouse::Cursor,
-        renderer: &Renderer,
-        clipboard: &mut dyn Clipboard,
-        shell: &mut Shell<'_, Message>,
-    ) -> event::Status {
-        if let Event::Window(_, window::Event::RedrawRequested(now)) =
-            &event
-        {
-            let mut next_redraw: Option<window::RedrawRequest> = None;
-
-            self.instants.iter_mut().enumerate().for_each(
-                |(index, maybe_instant)| {
-                    if let Some(instant) = maybe_instant.as_mut() {
-                        let remaining =
-                            Duration::from_secs(self.timeout_secs)
-                                .saturating_sub(instant.elapsed());
-
-                        if remaining == Duration::ZERO {
-                            maybe_instant.take();
-                            shell.publish((self.on_close)(index));
-                            next_redraw =
-                                Some(window::RedrawRequest::NextFrame);
-                        } else {
-                            let redraw_at =
-                                window::RedrawRequest::At(*now + remaining);
-                            next_redraw = next_redraw
-                                .map(|redraw| redraw.min(redraw_at))
-                                .or(Some(redraw_at));
-                        }
-                    }
-                },
-            );
-
-            if let Some(redraw) = next_redraw {
-                shell.request_redraw(redraw);
-            }
-        }
-
-        let viewport = layout.bounds();
-
-        self.toasts
-            .iter_mut()
-            .zip(self.state.iter_mut())
-            .zip(layout.children())
-            .zip(self.instants.iter_mut())
-            .map(|(((child, state), layout), instant)| {
-                let mut local_messages = vec![];
-                let mut local_shell = Shell::new(&mut local_messages);
-
-                let status = child.as_widget_mut().on_event(
-                    state,
-                    event.clone(),
-                    layout,
-                    cursor,
-                    renderer,
-                    clipboard,
-                    &mut local_shell,
-                    &viewport,
-                );
-
-                if !local_shell.is_empty() {
-                    instant.take();
-                }
-
-                shell.merge(local_shell, std::convert::identity);
-
-                status
-            })
-            .fold(event::Status::Ignored, event::Status::merge)
-    }
-
-    fn draw(
-        &self,
-        renderer: &mut Renderer,
-        theme: &Theme,
-        style: &renderer::Style,
-        layout: Layout<'_>,
-        cursor: mouse::Cursor,
-    ) {
-        let viewport = layout.bounds();
-
-        for ((child, state), layout) in self
-            .toasts
-            .iter()
-            .zip(self.state.iter())
-            .zip(layout.children())
-        {
-            child.as_widget().draw(
-                state, renderer, theme, style, layout, cursor, &viewport,
-            );
-        }
-    }
-
-    fn operate(
-        &mut self,
-        layout: Layout<'_>,
-        renderer: &Renderer,
-        operation: &mut dyn widget::Operation<Message>,
-    ) {
-        operation.container(None, layout.bounds(), &mut |operation| {
-            self.toasts
-                .iter()
-                .zip(self.state.iter_mut())
-                .zip(layout.children())
-                .for_each(|((child, state), layout)| {
-                    child
-                        .as_widget()
-                        .operate(state, layout, renderer, operation);
-                });
-        });
-    }
-
-    fn mouse_interaction(
-        &self,
-        layout: Layout<'_>,
-        cursor: mouse::Cursor,
-        viewport: &Rectangle,
-        renderer: &Renderer,
-    ) -> mouse::Interaction {
-        self.toasts
-            .iter()
-            .zip(self.state.iter())
-            .zip(layout.children())
-            .map(|((child, state), layout)| {
-                child.as_widget().mouse_interaction(
-                    state, layout, cursor, viewport, renderer,
-                )
-            })
-            .max()
-            .unwrap_or_default()
-    }
-
-    fn is_over(
-        &self,
-        layout: Layout<'_>,
-        _renderer: &Renderer,
-        cursor_position: Point,
-    ) -> bool {
-        layout
-            .children()
-            .any(|layout| layout.bounds().contains(cursor_position))
-    }
-}
 
 impl<'a, Message> From<Manager<'a, Message>> for Element<'a, Message>
 where
@@ -493,36 +320,4 @@ where
     fn from(manager: Manager<'a, Message>) -> Self {
         Element::new(manager)
     }
-}
-
-fn styled(pair: theme::palette::Pair) -> container::Style {
-    container::Style {
-        background: Some(pair.color.into()),
-        text_color: pair.text.into(),
-        ..Default::default()
-    }
-}
-
-fn primary(theme: &Theme) -> container::Style {
-    let palette = theme.extended_palette();
-
-    styled(palette.primary.weak)
-}
-
-fn secondary(theme: &Theme) -> container::Style {
-    let palette = theme.extended_palette();
-
-    styled(palette.secondary.weak)
-}
-
-fn success(theme: &Theme) -> container::Style {
-    let palette = theme.extended_palette();
-
-    styled(palette.success.weak)
-}
-
-fn danger(theme: &Theme) -> container::Style {
-    let palette = theme.extended_palette();
-
-    styled(palette.danger.weak)
 }

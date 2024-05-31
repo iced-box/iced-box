@@ -1,6 +1,7 @@
 use super::{Status, Toast};
 
 
+/// Provides a new instance of Toasts with the danger style
 pub fn danger(title: &str) -> Toast {
     Toast {
         title: title.to_string(),
@@ -10,6 +11,7 @@ pub fn danger(title: &str) -> Toast {
     }
 }
 
+/// Provides a new instance of Toasts with the primary style
 pub fn primary(title: &str) -> Toast {
     Toast {
         title: title.to_string(),
@@ -19,6 +21,7 @@ pub fn primary(title: &str) -> Toast {
     }
 }
 
+/// Provides a new instance of Toasts with the secondary style
 pub fn secondary(title: &str) -> Toast {
     Toast {
         title: title.to_string(),
@@ -28,6 +31,7 @@ pub fn secondary(title: &str) -> Toast {
     }
 }
 
+/// Provides a new instance of Toasts with the success style
 pub fn success(title: &str) -> Toast {
     Toast {
         title: title.to_string(),
