@@ -21,3 +21,5 @@ pub mod icon {
     #[cfg(feature = "icon")]
     pub type LoadingResult = Result<(), iced::font::Error>;
 }
+
+mod toasts;
