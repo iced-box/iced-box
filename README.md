@@ -19,6 +19,7 @@ To install several features, use ```cargo add iced-box --features material_icons
 | --- | --- |
 | [material_icons](https://docs.rs/iced-box/latest/iced_box/icon/material) | Provides Google Material style icons  |
 | [lucide_icons](https://docs.rs/iced-box/latest/iced_box/icon/lucide) | Provides Lucide style icons |
+| [toasts](https://docs.rs/iced-box/latest/iced_box/toasts) | Provides alerts and toast messages |
 
 ### Description
 This box was created with the aim of offering new features to [iced](https://iced.rs)
