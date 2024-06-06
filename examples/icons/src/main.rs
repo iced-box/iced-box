@@ -46,7 +46,7 @@ impl Counter {
             // The increment button. We tell it to produce an
             // `IncrementPressed` message when pressed
             button(
-                text('\u{ea41}').font(material_font)
+                text(Material::PlusOne.to_string()).font(material_font)
             ).on_press(Message::IncrementPressed),
 
             // We show the value of the counter here

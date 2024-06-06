@@ -29,7 +29,7 @@ members = [
 ]
 
 [workspace.dependencies]
-iced = {  git = "https://github.com/iced-rs/iced.git", rev = "663a081bdd507da0b5ca7d4dc30d78a20b4618af", default-features = false, features = ["advanced"] }
+iced = {  git = "https://github.com/iced-rs/iced.git", rev = "06ff17fcf87495663a295d1548df1c2ac03dafbd", features = ["advanced"] }
 iced-box = { path = "." }
 
 [dependencies]
