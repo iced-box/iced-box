@@ -75,17 +75,19 @@ where
                         row![
                             if toast.with_close {
                                 column![
-                                    text(toast.title.as_str()),
-                                    horizontal_space(),
-                                    button("x")
+                                    row![
+                                        text(toast.title.as_str()),
+                                        horizontal_space(),
+                                        button("x")
                                         .on_press((on_close)(index))
-                                        .padding(3)
+                                        .padding(0)
                                         .style(|_theme: &Theme, _status: button::Status| {
                                             button::Style {
                                                 background: None,
                                                 ..button::Style::default()
                                             }
                                         })
+                                    ],
                                 ]
                             } else {
                                 column![
