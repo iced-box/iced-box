@@ -1,6 +1,6 @@
 [package]
 name = "iced-box"
-description = "A utility box for iced.rs"
+description = "A utility box for iced.rs that provides toasts notifications, material icons, lucide and more"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
@@ -11,7 +11,7 @@ keywords.workspace = true
 
 
 [workspace.package]
-version = "0.5.0"
+version = "0.6.0"
 authors = ["Cosmo André <soucosmomoraes@gmail.com>"]
 edition = "2021"
 repository = "https://github.com/iced-box/iced-box"
@@ -29,7 +29,7 @@ members = [
 ]
 
 [workspace.dependencies]
-iced = { version = "0.12.1", default-features = false }
+iced = {  git = "https://github.com/iced-rs/iced.git", rev = "06ff17fcf87495663a295d1548df1c2ac03dafbd", features = ["advanced"] }
 iced-box = { path = "." }
 
 [dependencies]
@@ -40,6 +40,7 @@ iced.workspace = true
 icon = []
 lucide_icons = ["icon"]
 material_icons = ["icon"]
+toasts = []
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
