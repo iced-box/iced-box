@@ -1,6 +1,6 @@
 [package]
 name = "iced-box"
-description = "A utility box for iced.rs"
+description = "A utility box for iced.rs that provides toasts notifications, material icons, lucide and more"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true

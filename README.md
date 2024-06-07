@@ -1,5 +1,7 @@
+<img src="https://raw.githubusercontent.com/iced-rs/iced/master/docs/logo.svg" width="140px" />
+
 # iced-box
-A utility box for iced.rs
+A utility box for iced.rs that provides toasts notifications, material icons, lucide and more.
 
 ### Useful links
 iced-box documentation [here](https://docs.rs/iced-box/latest/iced_box/)
@@ -44,3 +46,8 @@ Today, iced has a complicated learning curve, one of the objectives of this proj
 
 ### Contributing
 Are you interested in contributing to the project? [know more](CONTRIBUTING.md) 
+
+### Donation
+| Crypto | Address                             |
+| --- |-------------------------------------|
+| Dogecoin | DD3aGVrzfNDMkeE2Gc7rHLjbmdwMV4DBqG  |
