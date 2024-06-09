@@ -46,7 +46,7 @@ impl Counter {
                 self.toasts.push(success("Success when adding 1"));
             }
             Message::IncrementFivePressed => {
-                self.value += 10;
+                self.value += 5;
                 self.toasts.push(
                     primary("Added 5").body(
                         format!("The value is now {}", self.value).as_str()
