@@ -1,51 +1,21 @@
-use iced::{
-    Element,
-    Alignment,
-    Theme,
-    Length,
-    Size,
-    mouse,
-    Renderer,
-    time::Instant,
-    event::{self, Event},
-    Rectangle,
-    Vector,
-    advanced::{
-        renderer,
-        overlay::{self},
-        Shell,
-        layout,
-        Widget,
-        Layout,
-        Clipboard,
-        widget::{
-            self,
-            Tree,
-            Operation,
-        },
-    },
-    widget::{
-        button,
-        column,
-        container,
-        horizontal_rule,
-        horizontal_space,
-        row,
-        text,
-    }
-};
 use super::{
-    Toast,
+    Status, Toast,
     overlay::Overlay,
-    Status,
-    styles::{
-        primary,
-        secondary,
-        success,
-        danger,
-    },
+    styles::{danger, primary, secondary, success},
 };
-
+use iced::{
+    Alignment, Element, Length, Rectangle, Renderer, Size, Theme, Vector,
+    advanced::{
+        Clipboard, Layout, Shell, Widget, layout,
+        overlay::{self},
+        renderer,
+        widget::{self, Operation, Tree},
+    },
+    event::Event,
+    mouse,
+    time::Instant,
+    widget::{Space, button, column, container, row, rule, text},
+};
 
 pub const DEFAULT_TIMEOUT: u64 = 5;
 
@@ -72,30 +42,23 @@ where
             .map(|(index, toast)| {
                 container(column![
                     container(
-                        row![
-                            if toast.with_close {
-                                column![
-                                    row![
-                                        text(toast.title.as_str()),
-                                        horizontal_space(),
-                                        button("x")
-                                        .on_press((on_close)(index))
-                                        .padding(0)
-                                        .style(|_theme: &Theme, _status: button::Status| {
-                                            button::Style {
-                                                background: None,
-                                                ..button::Style::default()
-                                            }
-                                        })
-                                    ],
-                                ]
-                            } else {
-                                column![
-                                    text(toast.title.as_str())
-                                ]
-                            }
-                        ]
-                        .align_items(Alignment::Center)
+                        row![if toast.with_close {
+                            column![row![
+                                text(toast.title.as_str()),
+                                Space::new().width(Length::Fill),
+                                button("x").on_press((on_close)(index)).padding(0).style(
+                                    |_theme: &Theme, _status: button::Status| {
+                                        button::Style {
+                                            background: None,
+                                            ..button::Style::default()
+                                        }
+                                    }
+                                )
+                            ],]
+                        } else {
+                            column![text(toast.title.as_str())]
+                        }]
+                        .align_y(Alignment::Center)
                     )
                     .width(Length::Fill)
                     .padding(5)
@@ -105,12 +68,11 @@ where
                         Status::Success => success,
                         Status::Danger => danger,
                     }),
-
                     if toast.body.is_empty() {
                         column![]
                     } else {
                         column![
-                            horizontal_rule(1),
+                            rule::horizontal(1),
                             container(text(toast.body.as_str()))
                                 .width(Length::Fill)
                                 .padding(5)
@@ -146,16 +108,14 @@ impl<'a, Message> Widget<Message, Theme, Renderer> for Manager<'a, Message> {
     }
 
     fn layout(
-        &self,
+        &mut self,
         tree: &mut Tree,
         renderer: &Renderer,
         limits: &layout::Limits,
     ) -> layout::Node {
-        self.content.as_widget().layout(
-            &mut tree.children[0],
-            renderer,
-            limits,
-        )
+        self.content
+            .as_widget_mut()
+            .layout(&mut tree.children[0], renderer, limits)
     }
 
     fn tag(&self) -> widget::tree::Tag {
@@ -186,9 +146,7 @@ impl<'a, Message> Widget<Message, Theme, Renderer> for Manager<'a, Message> {
                 instants.truncate(new);
             }
             (old, new) if old < new => {
-                instants.extend(
-                    std::iter::repeat(Some(Instant::now())).take(new - old),
-                );
+                instants.extend(std::iter::repeat_n(Some(Instant::now()), new - old));
             }
             _ => {}
         }
@@ -200,35 +158,31 @@ impl<'a, Message> Widget<Message, Theme, Renderer> for Manager<'a, Message> {
         );
     }
 
-    fn operate(
-        &self,
-        state: &mut Tree,
-        layout: Layout<'_>,
-        renderer: &Renderer,
-        operation: &mut dyn Operation<Message>,
-    ) {
-        operation.container(None, layout.bounds(), &mut |operation| {
-            self.content.as_widget().operate(
-                &mut state.children[0],
-                layout,
-                renderer,
-                operation,
-            );
-        });
-    }
-
-    fn on_event(
+    fn operate<'b>(
         &mut self,
         state: &mut Tree,
-        event: Event,
+        layout: Layout<'b>,
+        renderer: &Renderer,
+        operation: &mut dyn Operation,
+    ) {
+        operation.container(None, layout.bounds());
+        self.content
+            .as_widget_mut()
+            .operate(&mut state.children[0], layout, renderer, operation);
+    }
+
+    fn update(
+        &mut self,
+        state: &mut Tree,
+        event: &Event,
         layout: Layout<'_>,
         cursor: mouse::Cursor,
         renderer: &Renderer,
         clipboard: &mut dyn Clipboard,
         shell: &mut Shell<'_, Message>,
         viewport: &Rectangle,
-    ) -> event::Status {
-        self.content.as_widget_mut().on_event(
+    ) {
+        self.content.as_widget_mut().update(
             &mut state.children[0],
             event,
             layout,
@@ -237,7 +191,7 @@ impl<'a, Message> Widget<Message, Theme, Renderer> for Manager<'a, Message> {
             clipboard,
             shell,
             viewport,
-        )
+        );
     }
 
     fn draw(
@@ -281,8 +235,9 @@ impl<'a, Message> Widget<Message, Theme, Renderer> for Manager<'a, Message> {
     fn overlay<'b>(
         &'b mut self,
         state: &'b mut Tree,
-        layout: Layout<'_>,
+        layout: Layout<'b>,
         renderer: &Renderer,
+        bounds: &Rectangle,
         translation: Vector,
     ) -> Option<overlay::Element<'b, Message, Theme, Renderer>> {
         let instants = state.state.downcast_mut::<Vec<Option<Instant>>>();
@@ -293,6 +248,7 @@ impl<'a, Message> Widget<Message, Theme, Renderer> for Manager<'a, Message> {
             &mut content_state[0],
             layout,
             renderer,
+            bounds,
             translation,
         );
 
@@ -306,14 +262,18 @@ impl<'a, Message> Widget<Message, Theme, Renderer> for Manager<'a, Message> {
                 timeout_secs: self.timeout_secs,
             }))
         });
-        let overlays =
-            content.into_iter().chain(toasts).collect::<Vec<_>>();
+        let overlays: Vec<overlay::Element<'b, Message, Theme, Renderer>> =
+            content.into_iter().chain(toasts).collect();
 
-        (!overlays.is_empty())
-            .then(|| overlay::Group::with_children(overlays).overlay())
+        if !overlays.is_empty() {
+            Some(overlay::Element::new(Box::new(
+                overlay::Group::with_children(overlays),
+            )))
+        } else {
+            None
+        }
     }
 }
-
 
 impl<'a, Message> From<Manager<'a, Message>> for Element<'a, Message>
 where

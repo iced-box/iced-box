@@ -1,8 +1,8 @@
-mod status;
 pub mod helpers;
 mod manager;
-mod styles;
 mod overlay;
+mod status;
+mod styles;
 
 use status::Status;
 
@@ -29,5 +29,5 @@ impl Toast {
     pub fn with_close(mut self) -> Self {
         self.with_close = true;
         self
-    }   
+    }
 }

@@ -1,8 +1,4 @@
-use iced::{
-    theme,
-    Theme,
-    widget::container,
-};
+use iced::{Theme, theme, widget::container};
 
 pub fn primary(theme: &Theme) -> container::Style {
     let palette = theme.extended_palette();

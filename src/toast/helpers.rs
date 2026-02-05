@@ -1,6 +1,5 @@
 use super::{Status, Toast};
 
-
 /// Provides a new instance of Toasts with the danger style
 pub fn danger(title: &str) -> Toast {
     Toast {

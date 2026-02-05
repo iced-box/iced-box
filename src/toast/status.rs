@@ -10,8 +10,7 @@ pub enum Status {
 }
 
 impl Status {
-    pub const ALL: &'static [Self] =
-        &[Self::Primary, Self::Secondary, Self::Success, Self::Danger];
+    pub const ALL: &'static [Self] = &[Self::Primary, Self::Secondary, Self::Success, Self::Danger];
 }
 
 impl fmt::Display for Status {
