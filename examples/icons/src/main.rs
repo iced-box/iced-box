@@ -1,13 +1,9 @@
 extern crate iced;
 extern crate iced_box;
 
-use iced::{Font, Command, Element};
 use iced::widget::{button, column, text};
-use iced_box::icon::{
-    LoadingResult,
-    lucide::*,
-    material::*,
-};
+use iced::{Element, Font, Task};
+use iced_box::icon::{LoadingResult, lucide::*, material::*};
 
 #[derive(Debug, Clone, Copy)]
 pub enum Message {
@@ -23,52 +19,46 @@ struct Counter {
 }
 
 impl Counter {
-    fn update(&mut self, message: Message) -> Command<Message> {
+    fn update(&mut self, message: Message) -> Task<Message> {
         match message {
             Message::IncrementPressed => {
                 self.value += 1;
             }
             Message::DecrementPressed => {
                 self.value -= 1;
-            },
-            _ => {},
+            }
+            _ => {}
         }
 
-        Command::none()
+        Task::none()
     }
-    
-    fn view(&self) -> Element<Message> {
-        let lucide_font : Font = lucide_font();
-        let material_font : Font = material_font();
+
+    fn view(&self) -> Element<'_, Message> {
+        let lucide_font: Font = lucide_font();
+        let material_font: Font = material_font();
 
         // We use a column: a simple vertical layout
         column![
             // The increment button. We tell it to produce an
             // `IncrementPressed` message when pressed
-            button(
-                text(Material::PlusOne.to_string()).font(material_font)
-            ).on_press(Message::IncrementPressed),
-
+            button(text(Material::PlusOne.to_string()).font(material_font))
+                .on_press(Message::IncrementPressed),
             // We show the value of the counter here
             text(self.value).size(50),
-
             // The decrement button. We tell it to produce a
             // `DecrementPressed` message when pressed
-            button(
-                text(Lucide::Minus.to_string()).font(lucide_font)
-            ).on_press(Message::DecrementPressed),
+            button(text(Lucide::Minus.to_string()).font(lucide_font))
+                .on_press(Message::DecrementPressed),
             text(Lucide::Plane.to_string()).font(lucide_font)
-        ].into()
+        ]
+        .into()
     }
 }
+
 fn main() {
-    let _ = iced::program(
-        "Icex-box icons",
-        Counter::update,
-        Counter::view
-    ).font(
-        load_material_font()
-    ).font(
-        load_lucide_font()
-    ).run();
+    let _ = iced::application(Counter::default, Counter::update, Counter::view)
+        .title("Iced-box icons")
+        .font(load_material_font())
+        .font(load_lucide_font())
+        .run();
 }

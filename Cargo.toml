@@ -9,18 +9,14 @@ repository.workspace = true
 categories.workspace = true
 keywords.workspace = true
 
-
 [workspace.package]
 version = "0.6.0"
 authors = ["Cosmo André <soucosmomoraes@gmail.com>"]
-edition = "2021"
+edition = "2024"
 repository = "https://github.com/iced-box/iced-box"
 categories = ["gui"]
 keywords = ["gui", "ui", "graphics", "interface", "widgets"]
 license = "GPL-3.0-only"
-
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace]
 members = [
@@ -29,12 +25,11 @@ members = [
 ]
 
 [workspace.dependencies]
-iced = {  git = "https://github.com/iced-rs/iced.git", rev = "06ff17fcf87495663a295d1548df1c2ac03dafbd", features = ["advanced"] }
+iced = { version = "0.14", features = ["advanced"] }
 iced-box = { path = "." }
 
 [dependencies]
 iced.workspace = true
-
 
 [features]
 icon = []
